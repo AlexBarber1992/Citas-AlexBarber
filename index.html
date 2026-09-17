@@ -6,73 +6,93 @@
     <title>AlexBarber - Agenda</title>
     <style>
         :root { --fondo: #111; --cian: #00f3ff; --rosa: #ff007f; --texto: #fff; }
-        body { background: var(--fondo); color: var(--texto); font-family: sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px; }
-        .contenedor { background: #1a1a1a; padding: 25px; border-radius: 10px; border: 1px solid #333; width: 100%; max-width: 350px; box-shadow: 0 0 10px var(--cian); box-sizing: border-box; }
-        img { width: 120px; display: block; margin: 0 auto 15px; border-radius: 50%; box-shadow: 0 0 15px var(--rosa); }
+        body { background: var(--fondo); color: var(--texto); font-family: sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px; margin: 0; }
+        .contenedor { background: #1a1a1a; padding: 20px; border-radius: 10px; border: 1px solid #333; width: 100%; max-width: 400px; box-sizing: border-box; box-shadow: 0 0 15px var(--cian); }
+        img { width: 120px; display: block; margin: 0 auto; border-radius: 50%; box-shadow: 0 0 15px var(--rosa); }
         h1 { text-align: center; color: var(--texto); text-shadow: 0 0 5px var(--cian); font-size: 22px; }
-        label { display: block; margin-top: 15px; color: var(--cian); font-weight: bold; }
-        input, select { width: 100%; padding: 10px; margin-top: 5px; background: #222; border: 1px solid var(--rosa); color: white; border-radius: 5px; box-sizing: border-box; font-size: 16px; }
-        button { width: 100%; padding: 15px; margin-top: 25px; background: transparent; color: var(--texto); border: 2px solid var(--rosa); border-radius: 5px; font-size: 18px; font-weight: bold; text-shadow: 0 0 5px var(--rosa); box-shadow: inset 0 0 10px var(--rosa); cursor: pointer; }
+        label { display: block; margin-top: 15px; margin-bottom: 5px; color: var(--cian); font-weight: bold; }
+        input[type="text"], input[type="date"], select { width: 100%; padding: 10px; margin-top: 5px; box-sizing: border-box; background: #222; border: 1px solid var(--cian); color: var(--texto); border-radius: 5px; }
+        .checkbox-group { background: #222; border: 1px solid var(--cian); padding: 10px; border-radius: 5px; }
+        .checkbox-group label { display: flex; align-items: center; margin-top: 10px; color: var(--texto); font-weight: normal; margin-bottom: 0; }
+        .checkbox-group input { margin-right: 10px; transform: scale(1.2); }
+        button { width: 100%; padding: 15px; margin-top: 20px; background: transparent; color: var(--texto); border: 2px solid var(--rosa); border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 0 10px var(--rosa); text-transform: uppercase; }
     </style>
 </head>
 <body>
+
     <div class="contenedor">
         <img src="Screenshot_2026-09-17-16-46-21-435_com.google.android.apps.photos-edit.jpg" alt="Logo">
         <h1>Citas AlexBarber</h1>
-        <form>
-            <label>Tu Nombre:</label>
-            <input type="text" id="nombre" placeholder="Ej. Carlos" required>
-            
-            <label>Servicio:</label>
-            <select id="servicio">
-                <option value="Corte de cabello ($250)">Corte de cabello - $250</option>
-                <option value="Perfilado Barba ($200)">Perfilado Barba - $200</option>
-                <option value="Perfilado Cejas ($50)">Perfilado Cejas - $50</option>
-                <option value="Tratamiento facial ($150)">Tratamiento facial - $150</option>
-            </select>
+        
+        <label>Tu Nombre:</label>
+        <input type="text" id="nombre" placeholder="Ej. Pedro" required>
 
-            <label>Día (Jueves descansamos):</label>
-            <input type="date" id="fecha" required>
+        <label>Servicios (Selecciona varios):</label>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="servicio" value="Corte de cabello" data-precio="250"> Corte de cabello - $250</label>
+            <label><input type="checkbox" name="servicio" value="Perfilado Barba" data-precio="200"> Perfilado de Barba - $200</label>
+            <label><input type="checkbox" name="servicio" value="Perfilado Cejas" data-precio="50"> Perfilado de Cejas - $50</label>
+            <label><input type="checkbox" name="servicio" value="Tratamiento facial" data-precio="150"> Tratamiento facial - $150</label>
+        </div>
 
-            <label>Hora (Turnos de 1h):</label>
-            <select id="hora">
-                <option value="10:00 AM">10:00 AM</option>
-                <option value="11:00 AM">11:00 AM</option>
-                <option value="12:00 PM">12:00 PM</option>
-                <option value="01:00 PM">01:00 PM</option>
-                <option value="03:30 PM">03:30 PM (Tarde)</option>
-                <option value="04:30 PM">04:30 PM</option>
-                <option value="05:30 PM">05:30 PM</option>
-                <option value="06:30 PM">06:30 PM</option>
-                <option value="07:30 PM">07:30 PM</option>
-            </select>
+        <label>Día (Jueves descansamos):</label>
+        <input type="date" id="fecha" required>
 
-            <button type="button" onclick="enviar()">Agendar Cita</button>
-        </form>
+        <label>Hora (Turnos de 1h):</label>
+        <select id="hora">
+            <option value="10:00 AM">10:00 AM</option>
+            <option value="11:00 AM">11:00 AM</option>
+            <option value="12:00 PM">12:00 PM</option>
+            <option value="1:00 PM">1:00 PM</option>
+            <option value="2:30 PM">2:30 PM (Comida)</option>
+            <option value="3:30 PM">3:30 PM</option>
+            <option value="4:30 PM">4:30 PM</option>
+            <option value="5:30 PM">5:30 PM</option>
+            <option value="6:30 PM">6:30 PM</option>
+            <option value="7:30 PM">7:30 PM</option>
+        </select>
+
+        <button onclick="enviarWhatsApp()">Agendar Cita</button>
     </div>
+
     <script>
-        document.getElementById('fecha').addEventListener('input', function(e){
-            if(new Date(this.value).getUTCDay() === 4){
-                alert('Los jueves descansamos. Por favor elige otro día.');
-                this.value = '';
-            }
-        });
-        function enviar() {
-            let nom = document.getElementById('nombre').value;
-            let ser = document.getElementById('servicio').value;
-            let fec = document.getElementById('fecha').value;
-            let hor = document.getElementById('hora').value;
-            if(!nom || !fec) {
-                alert('Por favor llena tu nombre y la fecha de la cita.');
+        var hoy = new Date().toISOString().split('T')[0];
+        document.getElementById("fecha").setAttribute('min', hoy);
+
+        function enviarWhatsApp() {
+            var nombre = document.getElementById("nombre").value;
+            var fecha = document.getElementById("fecha").value;
+            var hora = document.getElementById("hora").value;
+            
+            var checkboxes = document.querySelectorAll('input[name="servicio"]:checked');
+            var serviciosSeleccionados = [];
+            var total = 0;
+
+            checkboxes.forEach((cb) => {
+                serviciosSeleccionados.push(cb.value);
+                total += parseInt(cb.getAttribute('data-precio'));
+            });
+
+            if (nombre === "" || fecha === "" || serviciosSeleccionados.length === 0) {
+                alert("Faltan datos. Escribe tu nombre, fecha y elige al menos un servicio.");
                 return;
             }
+
+            var serviciosTexto = serviciosSeleccionados.join(", ");
+            var telefono = "529841376925"; 
             
-            // ---> AQUI CAMBIA TU NUMERO <---
-            let num = "529841376925"; 
+            var mensaje = "¡Hola AlexBarber! 💈\nQuiero agendar un espacio:\n\n" +
+                          "👤 Nombre: " + nombre + "\n" +
+                          "✂️ Servicios: " + serviciosTexto + "\n" +
+                          "💰 Total estimado: $" + total + "\n" +
+                          "📅 Día: " + fecha + "\n" +
+                          "⏰ Hora: " + hora + "\n\n" +
+                          "¿Me confirmas la cita?";
             
-            let msj = `¡Hola AlexBarber! 💈%0AQuiero agendar un espacio:%0A%0A👤 *Nombre:* ${nom}%0A✂️ *Servicio:* ${ser}%0A📅 *Día:* ${fec}%0A⏰ *Hora:* ${hor}%0A%0A¿Me confirmas la cita?`;
-            window.open(`https://wa.me/${num}?text=${msj}`);
+            var url = "https://wa.me/" + telefono + "?text=" + encodeURIComponent(mensaje);
+            window.open(url, '_blank');
         }
     </script>
 </body>
 </html>
+
