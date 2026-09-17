@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlexBarber - Agenda</title>
+    <style>
+        :root { --fondo: #111; --cian: #00f3ff; --rosa: #ff007f; --texto: #fff; }
+        body { background: var(--fondo); color: var(--texto); font-family: sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .contenedor { background: #1a1a1a; padding: 25px; border-radius: 10px; border: 1px solid #333; width: 100%; max-width: 350px; box-shadow: 0 0 10px var(--cian); box-sizing: border-box; }
+        img { width: 120px; display: block; margin: 0 auto 15px; border-radius: 50%; box-shadow: 0 0 15px var(--rosa); }
+        h1 { text-align: center; color: var(--texto); text-shadow: 0 0 5px var(--cian); font-size: 22px; }
+        label { display: block; margin-top: 15px; color: var(--cian); font-weight: bold; }
+        input, select { width: 100%; padding: 10px; margin-top: 5px; background: #222; border: 1px solid var(--rosa); color: white; border-radius: 5px; box-sizing: border-box; font-size: 16px; }
+        button { width: 100%; padding: 15px; margin-top: 25px; background: transparent; color: var(--texto); border: 2px solid var(--rosa); border-radius: 5px; font-size: 18px; font-weight: bold; text-shadow: 0 0 5px var(--rosa); box-shadow: inset 0 0 10px var(--rosa); cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <img src="1000206168.jpg" alt="Logo">
+        <h1>Citas AlexBarber</h1>
+        <form>
+            <label>Tu Nombre:</label>
+            <input type="text" id="nombre" placeholder="Ej. Carlos" required>
+            
+            <label>Servicio:</label>
+            <select id="servicio">
+                <option value="Corte de cabello ($250)">Corte de cabello - $250</option>
+                <option value="Perfilado Barba ($200)">Perfilado Barba - $200</option>
+                <option value="Perfilado Cejas ($50)">Perfilado Cejas - $50</option>
+                <option value="Tratamiento facial ($150)">Tratamiento facial - $150</option>
+            </select>
+
+            <label>Día (Jueves descansamos):</label>
+            <input type="date" id="fecha" required>
+
+            <label>Hora (Turnos de 1h):</label>
+            <select id="hora">
+                <option value="10:00 AM">10:00 AM</option>
+                <option value="11:00 AM">11:00 AM</option>
+                <option value="12:00 PM">12:00 PM</option>
+                <option value="01:00 PM">01:00 PM</option>
+                <option value="03:30 PM">03:30 PM (Tarde)</option>
+                <option value="04:30 PM">04:30 PM</option>
+                <option value="05:30 PM">05:30 PM</option>
+                <option value="06:30 PM">06:30 PM</option>
+                <option value="07:30 PM">07:30 PM</option>
+            </select>
+
+            <button type="button" onclick="enviar()">Agendar Cita</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('fecha').addEventListener('input', function(e){
+            if(new Date(this.value).getUTCDay() === 4){
+                alert('Los jueves descansamos. Por favor elige otro día.');
+                this.value = '';
+            }
+        });
+        function enviar() {
+            let nom = document.getElementById('nombre').value;
+            let ser = document.getElementById('servicio').value;
+            let fec = document.getElementById('fecha').value;
+            let hor = document.getElementById('hora').value;
+            if(!nom || !fec) {
+                alert('Por favor llena tu nombre y la fecha de la cita.');
+                return;
+            }
+            
+            // ---> AQUI CAMBIA TU NUMERO <---
+            let num = "529841376925"; 
+            
+            let msj = `¡Hola AlexBarber! 💈%0AQuiero agendar un espacio:%0A%0A👤 *Nombre:* ${nom}%0A✂️ *Servicio:* ${ser}%0A📅 *Día:* ${fec}%0A⏰ *Hora:* ${hor}%0A%0A¿Me confirmas la cita?`;
+            window.open(`https://wa.me/${num}?text=${msj}`);
+        }
+    </script>
+</body>
+</html>
