@@ -35,7 +35,7 @@
             <label><input type="checkbox" name="servicio" value="Tratamiento facial" data-precio="150"> Tratamiento facial - $150</label>
         </div>
 
-        <label>Día (Jueves descansamos):</label>
+        <label>Día (Jueves cerrado):</label>
         <input type="date" id="fecha" required>
 
         <label>Hora (Turnos de 1h):</label>
@@ -44,20 +44,47 @@
             <option value="11:00 AM">11:00 AM</option>
             <option value="12:00 PM">12:00 PM</option>
             <option value="1:00 PM">1:00 PM</option>
-            <option value="2:30 PM">2:30 PM (Comida)</option>
-            <option value="3:30 PM">3:30 PM</option>
-            <option value="4:30 PM">4:30 PM</option>
-            <option value="5:30 PM">5:30 PM</option>
-            <option value="6:30 PM">6:30 PM</option>
-            <option value="7:30 PM">7:30 PM</option>
+            <option value="2:00 PM">2:00 PM</option>
+            <!-- 3:00 PM eliminada para horario de almuerzo -->
+            <option value="4:00 PM">4:00 PM</option>
+            <option value="5:00 PM">5:00 PM</option>
+            <option value="6:00 PM">6:00 PM</option>
+            <option value="7:00 PM">7:00 PM</option>
+            <option value="8:00 PM">8:00 PM</option>
         </select>
 
         <button onclick="enviarWhatsApp()">Agendar Cita</button>
     </div>
 
     <script>
-        var hoy = new Date().toISOString().split('T')[0];
-        document.getElementById("fecha").setAttribute('min', hoy);
+        // Configuración de fechas y bloqueo de meses
+        var inputFecha = document.getElementById("fecha");
+        var hoy = new Date();
+        
+        // Ajuste de zona horaria para que el día sea exacto
+        var offset = hoy.getTimezoneOffset() * 60000;
+        var hoyLocal = new Date(hoy.getTime() - offset);
+        var hoyStr = hoyLocal.toISOString().split('T')[0];
+        
+        // Calcular fecha límite (Exactamente 1 mes después)
+        var mesSiguiente = new Date(hoyLocal);
+        mesSiguiente.setMonth(mesSiguiente.getMonth() + 1);
+        var maxStr = mesSiguiente.toISOString().split('T')[0];
+
+        inputFecha.setAttribute('min', hoyStr);
+        inputFecha.setAttribute('max', maxStr);
+
+        // Bloqueo estricto de los días jueves (Día 4 en programación)
+        inputFecha.addEventListener('input', function(e) {
+            if (this.value) {
+                var partes = this.value.split('-');
+                var fechaSeleccionada = new Date(partes[0], partes[1] - 1, partes[2]);
+                if (fechaSeleccionada.getDay() === 4) {
+                    alert("Los jueves descansamos. Por favor, elige otro día de la semana.");
+                    this.value = ''; // Borra el campo para obligar a elegir de nuevo
+                }
+            }
+        });
 
         function enviarWhatsApp() {
             var nombre = document.getElementById("nombre").value;
@@ -95,4 +122,3 @@
     </script>
 </body>
 </html>
-
