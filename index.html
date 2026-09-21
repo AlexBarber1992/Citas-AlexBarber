@@ -5,120 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AlexBarber - Agenda</title>
     <style>
-        :root { --fondo: #111; --cian: #00f3ff; --rosa: #ff007f; --texto: #fff; }
-        body { background: var(--fondo); color: var(--texto); font-family: sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px; margin: 0; }
-        .contenedor { background: #1a1a1a; padding: 20px; border-radius: 10px; border: 1px solid #333; width: 100%; max-width: 400px; box-sizing: border-box; box-shadow: 0 0 15px var(--cian); }
-        img { width: 120px; display: block; margin: 0 auto; border-radius: 50%; box-shadow: 0 0 15px var(--rosa); }
-        h1 { text-align: center; color: var(--texto); text-shadow: 0 0 5px var(--cian); font-size: 22px; }
-        label { display: block; margin-top: 15px; margin-bottom: 5px; color: var(--cian); font-weight: bold; }
-        input[type="text"], input[type="date"], select { width: 100%; padding: 10px; margin-top: 5px; box-sizing: border-box; background: #222; border: 1px solid var(--cian); color: var(--texto); border-radius: 5px; }
-        .checkbox-group { background: #222; border: 1px solid var(--cian); padding: 10px; border-radius: 5px; }
-        .checkbox-group label { display: flex; align-items: center; margin-top: 10px; color: var(--texto); font-weight: normal; margin-bottom: 0; }
-        .checkbox-group input { margin-right: 10px; transform: scale(1.2); }
-        button { width: 100%; padding: 15px; margin-top: 20px; background: transparent; color: var(--texto); border: 2px solid var(--rosa); border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 0 10px var(--rosa); text-transform: uppercase; }
+        :root { 
+            --fondo: #111; 
+            --cian: #00f3ff; 
+            --rosa: #ff007f; 
+        }
+        body { 
+            background: var(--fondo); 
+            color: white; 
+            font-family: Arial, sans-serif; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .contenedor { 
+            background: #1a1a1a; 
+            padding: 30px; 
+            border-radius: 15px; 
+            box-shadow: 0 0 20px var(--cian); 
+            text-align: center; 
+            max-width: 400px; 
+            width: 90%; 
+        }
+        img { 
+            width: 120px; 
+            display: block; 
+            margin: 0 auto 15px; 
+            border-radius: 50%;
+        }
+        h1 { 
+            text-align: center; 
+            color: var(--cian); 
+            text-shadow: 0 0 10px var(--cian); 
+            margin-bottom: 30px; 
+        }
+        button { 
+            width: 100%; 
+            padding: 15px; 
+            background: transparent; 
+            border: 2px solid var(--rosa); 
+            color: white; 
+            font-size: 18px; 
+            font-weight: bold; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            box-shadow: 0 0 10px var(--rosa); 
+            text-shadow: 0 0 5px var(--rosa); 
+        }
     </style>
 </head>
 <body>
 
     <div class="contenedor">
-        <img src="Screenshot_2026-09-17-16-46-21-435_com.google.android.apps.photos-edit.jpg" alt="Logo">
+        <!-- Revisa que este sea el nombre exacto de tu imagen -->
+        <img src="Screenshot_2026-09-17-16-46-21-4.jpg" alt="Logo AlexBarber">
+        
         <h1>Citas AlexBarber</h1>
         
-        <label>Tu Nombre:</label>
-        <input type="text" id="nombre" placeholder="Ej. Pedro" required>
-
-        <label>Servicios (Selecciona varios):</label>
-        <div class="checkbox-group">
-            <label><input type="checkbox" name="servicio" value="Corte de cabello" data-precio="250"> Corte de cabello - $250</label>
-            <label><input type="checkbox" name="servicio" value="Perfilado Barba" data-precio="200"> Perfilado de Barba - $200</label>
-            <label><input type="checkbox" name="servicio" value="Perfilado Cejas" data-precio="50"> Perfilado de Cejas - $50</label>
-            <label><input type="checkbox" name="servicio" value="Tratamiento facial" data-precio="150"> Tratamiento facial - $150</label>
-        </div>
-
-        <label>Día (Jueves cerrado):</label>
-        <input type="date" id="fecha" required>
-
-        <label>Hora (Turnos de 1h):</label>
-        <select id="hora">
-            <option value="10:00 AM">10:00 AM</option>
-            <option value="11:00 AM">11:00 AM</option>
-            <option value="12:00 PM">12:00 PM</option>
-            <option value="1:00 PM">1:00 PM</option>
-            <option value="2:00 PM">2:00 PM</option>
-            <!-- 3:00 PM eliminada para horario de almuerzo -->
-            <option value="4:00 PM">4:00 PM</option>
-            <option value="5:00 PM">5:00 PM</option>
-            <option value="6:00 PM">6:00 PM</option>
-            <option value="7:00 PM">7:00 PM</option>
-            <option value="8:00 PM">8:00 PM</option>
-        </select>
-
+        <!-- Pega aquí tu enlace de Fresha -->
         <button onclick="window.open('https://www.fresha.com/book-now/alexbarber-jkjl0ee7/all-offer?share=true&pId=3098034', '_blank')">Reservar Cita</button>
     </div>
 
-    <script>
-        // Configuración de fechas y bloqueo de meses
-        var inputFecha = document.getElementById("fecha");
-        var hoy = new Date();
-        
-        // Ajuste de zona horaria para que el día sea exacto
-        var offset = hoy.getTimezoneOffset() * 60000;
-        var hoyLocal = new Date(hoy.getTime() - offset);
-        var hoyStr = hoyLocal.toISOString().split('T')[0];
-        
-        // Calcular fecha límite (Exactamente 1 mes después)
-        var mesSiguiente = new Date(hoyLocal);
-        mesSiguiente.setMonth(mesSiguiente.getMonth() + 1);
-        var maxStr = mesSiguiente.toISOString().split('T')[0];
-
-        inputFecha.setAttribute('min', hoyStr);
-        inputFecha.setAttribute('max', maxStr);
-
-        // Bloqueo estricto de los días jueves (Día 4 en programación)
-        inputFecha.addEventListener('input', function(e) {
-            if (this.value) {
-                var partes = this.value.split('-');
-                var fechaSeleccionada = new Date(partes[0], partes[1] - 1, partes[2]);
-                if (fechaSeleccionada.getDay() === 4) {
-                    alert("Los jueves descansamos. Por favor, elige otro día de la semana.");
-                    this.value = ''; // Borra el campo para obligar a elegir de nuevo
-                }
-            }
-        });
-
-        function enviarWhatsApp() {
-            var nombre = document.getElementById("nombre").value;
-            var fecha = document.getElementById("fecha").value;
-            var hora = document.getElementById("hora").value;
-            
-            var checkboxes = document.querySelectorAll('input[name="servicio"]:checked');
-            var serviciosSeleccionados = [];
-            var total = 0;
-
-            checkboxes.forEach((cb) => {
-                serviciosSeleccionados.push(cb.value);
-                total += parseInt(cb.getAttribute('data-precio'));
-            });
-
-            if (nombre === "" || fecha === "" || serviciosSeleccionados.length === 0) {
-                alert("Faltan datos. Escribe tu nombre, fecha y elige al menos un servicio.");
-                return;
-            }
-
-            var serviciosTexto = serviciosSeleccionados.join(", ");
-            var telefono = "529841376925"; 
-            
-            var mensaje = "¡Hola AlexBarber! 💈\nQuiero agendar un espacio:\n\n" +
-                          "👤 Nombre: " + nombre + "\n" +
-                          "✂️ Servicios: " + serviciosTexto + "\n" +
-                          "💰 Total estimado: $" + total + "\n" +
-                          "📅 Día: " + fecha + "\n" +
-                          "⏰ Hora: " + hora + "\n\n" +
-                          "¿Me confirmas la cita?";
-            
-            var url = "https://wa.me/" + telefono + "?text=" + encodeURIComponent(mensaje);
-            window.open(url, '_blank');
-        }
-    </script>
 </body>
 </html>
