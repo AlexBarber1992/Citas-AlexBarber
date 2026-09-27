@@ -3,69 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AlexBarber - Agenda</title>
+    <title>AlexBarber | Barbería Premium</title>
+    <!-- Librería para íconos y fuente moderna -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root { 
-            --fondo: #111; 
+            --fondo: #0a0a0a; 
             --cian: #00f3ff; 
             --rosa: #ff007f; 
         }
+        
+        * { box-sizing: border-box; }
+        
         body { 
             background: var(--fondo); 
             color: white; 
-            font-family: Arial, sans-serif; 
+            font-family: 'Montserrat', sans-serif; 
+            margin: 0;
+            padding: 0 0 120px 0; /* Espacio para el botón flotante */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Cabecera */
+        header {
+            width: 100%;
+            padding: 40px 20px 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo { 
+            width: 130px; 
+            border-radius: 50%;
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.5), 0 0 15px rgba(255, 0, 127, 0.3);
+            margin-bottom: 25px;
+        }
+
+        h1 { 
+            color: var(--cian); 
+            text-shadow: 0 0 12px var(--cian); 
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .subtitulo {
+            color: #ddd;
+            font-size: 14px;
+            margin-top: 12px;
+            line-height: 1.6;
+            max-width: 320px;
+        }
+
+        /* Tarjetas de Servicios */
+        .servicios {
             display: flex;
             justify-content: center;
+            gap: 12px;
+            padding: 20px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .tarjeta {
+            flex: 1;
+            background: transparent;
+            padding: 20px 10px;
+            border-radius: 12px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            justify-content: center;
         }
-        .contenedor { 
-            background: #1a1a1a; 
-            padding: 30px; 
-            border-radius: 15px; 
-            box-shadow: 0 0 20px var(--cian); 
-            text-align: center; 
-            max-width: 400px; 
-            width: 90%; 
+
+        .tarjeta-cian {
+            border: 2px solid var(--cian);
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.4);
         }
-        img { 
-            width: 120px; 
-            display: block; 
-            margin: 0 auto 15px; 
-            border-radius: 50%;
+
+        .tarjeta-rosa {
+            border: 2px solid var(--rosa);
+            box-shadow: 0 0 10px rgba(255, 0, 127, 0.4);
         }
-        h1 { 
-            text-align: center; 
-            color: var(--cian); 
-            text-shadow: 0 0 10px var(--cian); 
-            margin-bottom: 30px; 
+
+        .tarjeta i {
+            font-size: 28px;
+            margin-bottom: 10px;
         }
-        button { 
-            width: 100%; 
-            padding: 15px; 
-            background: transparent; 
-            border: 2px solid var(--rosa); 
-            color: white; 
-            font-size: 18px; 
-            font-weight: bold; 
-            border-radius: 8px; 
-            cursor: pointer; 
-            box-shadow: 0 0 10px var(--rosa); 
-            text-shadow: 0 0 5px var(--rosa); 
+
+        .tarjeta-cian i, .tarjeta-cian span { color: var(--cian); }
+        .tarjeta-rosa i, .tarjeta-rosa span { color: var(--rosa); }
+
+        .tarjeta span {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Información Operativa */
+        .info-seccion {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px 25px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #ccc;
+            line-height: 1.5;
+        }
+
+        .info-item i {
+            font-size: 20px;
+            width: 40px;
+            text-align: left;
+        }
+
+        .icono-cian { color: var(--cian); text-shadow: 0 0 5px var(--cian); }
+        .icono-rosa { color: var(--rosa); text-shadow: 0 0 5px var(--rosa); }
+
+        /* Botón Flotante */
+        .contenedor-boton {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(10,10,10,1) 60%, rgba(10,10,10,0) 100%);
+            display: flex;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .btn-reservar {
+            width: 100%;
+            max-width: 350px;
+            padding: 18px;
+            background: #000;
+            border: 2px solid var(--rosa);
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.6);
+            transition: 0.3s;
+        }
+
+        .btn-reservar:active {
+            transform: scale(0.96);
+            box-shadow: 0 0 30px rgba(255, 0, 127, 0.9);
         }
     </style>
 </head>
 <body>
 
-    <div class="contenedor">
-        <!-- Revisa que este sea el nombre exacto de tu imagen -->
-        <img src="Screenshot_2026-09-17-16-46-21-435_com.google.android.apps.photos-edit.jpg" alt="Logo AlexBarber">
-        
-        <h1>Alex Barber</h1>
-        
-        <!-- Pega aquí tu enlace de Fresha -->
-        <button onclick="window.open('https://www.fresha.com/book-now/alexbarber-jkjl0ee7/all-offer?share=true&pId=3098034')">Agendar Cita</button>
+    <header>
+        <!-- Tu logo actual -->
+        <img src="Screenshot_2026-09-17-16-46-21-435_com.google.android.apps.photos-edit.jpg" alt="Logo AlexBarber" class="logo">
+        <h1>AlexBarber | Barbería Premium</h1>
+        <p class="subtitulo">Cortes de precisión y cuidado de la barba en Playa del Carmen.</p>
+    </header>
+
+    <div class="servicios">
+        <div class="tarjeta tarjeta-cian">
+            <i class="fa-solid fa-scissors"></i>
+            <span>Haircut</span>
+        </div>
+        <div class="tarjeta tarjeta-rosa">
+            <i class="fa-solid fa-razor"></i>
+            <span>Beard Trim</span>
+        </div>
+        <div class="tarjeta tarjeta-cian">
+            <i class="fa-solid fa-hot-tub-person"></i>
+            <span>Facial Treatments</span>
+        </div>
+    </div>
+
+    <div class="info-seccion">
+        <div class="info-item">
+            <i class="fa-regular fa-clock icono-cian"></i>
+            <div>Horario de operación: Cerrado Jueves</div>
+        </div>
+        <div class="info-item">
+            <i class="fa-solid fa-location-dot icono-cian"></i>
+            <div>Ubicación: Gonzalo Guerrero, Playa del Carmen</div>
+        </div>
+    </div>
+
+    <div class="contenedor-boton">
+        <button class="btn-reservar" onclick="window.open('https://www.fresha.com/book-now/alexbarber-jkjl0ee7/all-offer?share=true&pId=3098034', '_blank')">
+            AGENDAR CITA
+        </button>
     </div>
 
 </body>
